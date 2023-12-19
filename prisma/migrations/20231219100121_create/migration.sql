@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "Carro" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "marca" TEXT NOT NULL,
+    "modelo" TEXT NOT NULL,
+    "ano" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);
