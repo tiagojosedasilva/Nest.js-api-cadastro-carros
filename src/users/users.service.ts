@@ -1,44 +1,38 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/infraestrutura/prisma/prisma.service';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { FindOneOptions, Repository} from 'typeorm';
+import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
+import { UsersEntity } from './usersEntity';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Injectable()
 export class UsersService {
+    constructor(
+        @InjectRepository(UsersEntity)
+        private usersRepository: Repository<UsersEntity>
+        ){}
+     
+    async findAll(){
+        return this.usersRepository.find()
+    }
 
-  constructor(private readonly prismaService: PrismaService){}
+    async findOneOrFail(id: string){
+        return this.usersRepository.findOneOrFail({where: {id}})
+    }
 
-  create(createUserDto: CreateUserDto) {
-    return this.prismaService.user.create({
-      data: {
-        nome: createUserDto.nome,
-        email: createUserDto.email,
-        senha: createUserDto.senha
-      }
-    });
-  }
+    async store(user: CreateUserDto){
+        const newUser = this.usersRepository.create(user)
+        return this.usersRepository.save(newUser)
 
-  findAll() {
-    return this.prismaService.user.findMany();
-  }
+    }
 
-  findOne(id: number) {
-    return this.prismaService.user.findFirst({
-      where: {
-        id
-      }
-    })
-  }
+    async update(id: string, data){
+        const user = await this.findOneOrFail(id);
+        this.usersRepository.merge(user, data)
+        return this.usersRepository.save(user)
+    }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.prismaService.user.update({
-      where: {
-        id
-      }, data: updateUserDto
-    })
-  }
-
-  remove(id: number) {
-    return this.prismaService.user.delete({where: {id}});
-  }
+    async destroy(id: string){
+        await this.findOneOrFail(id)
+        this.usersRepository.delete(id)
+    }
 }
