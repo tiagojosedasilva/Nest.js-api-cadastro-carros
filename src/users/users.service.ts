@@ -19,6 +19,11 @@ export class UsersService {
         return this.usersRepository.findOneOrFail({where: {id}})
     }
 
+    async findOneOrFailEmail(email: string){
+        return this.usersRepository.findOneOrFail({where: {email}})
+    }
+
+
     async store(user: CreateUserDto){
         const newUser = this.usersRepository.create(user)
         return this.usersRepository.save(newUser)

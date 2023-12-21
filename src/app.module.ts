@@ -3,6 +3,9 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { UsersEntity } from './users/usersEntity';
+import { AuthModule } from './auth/auth.module';
+import { CarsModule } from './cars/cars.module';
+import { CarEntity } from './cars/entities/car.entity';
 
 @Module({
   imports: [ 
@@ -16,11 +19,13 @@ import { UsersEntity } from './users/usersEntity';
       username: process.env.TYPEORM_USERNAME,
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
-      entities: [__dirname, UsersEntity],
+      entities: [__dirname, UsersEntity, CarEntity],
       synchronize: true,
     // }),
     } as TypeOrmModuleOptions),
-    UsersModule
+    UsersModule,
+    AuthModule,
+    CarsModule
    ],
   controllers: [],
   providers: [],
