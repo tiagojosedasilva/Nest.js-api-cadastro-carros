@@ -12,6 +12,7 @@ export class CarsController {
 
   @Post()
   create(@Req() req: Request &{user: {id: string, email: string}},@Body() createCarDto: CreateCarDto) {
+    console.log({req})
     createCarDto.idUser = req.user.id;
     createCarDto.emailUser = req.user.email
     return this.carsService.create(createCarDto);

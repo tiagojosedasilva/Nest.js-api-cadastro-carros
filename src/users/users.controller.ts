@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserInterceptor } from 'src/interceptors/user.interceptor';
 
-@UseInterceptors(UserInterceptor)
+// @UseInterceptors(UserInterceptor)
 @Controller('users')
 export class UsersController {
 
@@ -19,6 +19,7 @@ export class UsersController {
 
     @Post()
     async create(@Body() body: CreateUserDto){
+        console.log({body})
         return this.userService.store(body)
     }
 

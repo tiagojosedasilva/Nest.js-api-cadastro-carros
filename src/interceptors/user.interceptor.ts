@@ -12,5 +12,7 @@ export class UserInterceptor implements NestInterceptor{
             console.log('IP User: ' + request.ip)
             console.log('Email user: ' + userEmail + ' ID user: ' + userID)
         }))
+
+        
     }
 }
