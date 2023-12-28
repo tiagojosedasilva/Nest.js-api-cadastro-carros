@@ -28,12 +28,12 @@ export class AuthService {
         }
 
         const validPassword = bcrypt.compare(password, user.password);
-        if(!validPassword){
+        if(validPassword){
             // console.log(validPassword)
-            return null
+            return user
         }
         // console.log( 'log ' + validPassword)
-        console.log(user)
-        return user;
+        // console.log(user)
+        return null;
     }
 }

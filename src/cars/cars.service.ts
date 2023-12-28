@@ -23,14 +23,18 @@ export class CarsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} car`;
+    return this.carRepository.find({
+      where: {
+        id: id.toString()
+      }
+    });
   }
 
   update(id: number, updateCarDto: UpdateCarDto) {
-    return `This action updates a #${id} car`;
+    return this.carRepository.update(id, updateCarDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} car`;
+    return this.carRepository.delete(id);
   }
 }
