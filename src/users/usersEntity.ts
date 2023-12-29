@@ -28,8 +28,8 @@ export class UsersEntity{
     @UpdateDateColumn()
     deleteAt: string
 
-    @BeforeInsert()
-    hashpassword(){
-        this.password = hashSync(this.password, 10);
-    }
+    // @BeforeInsert()
+    // hashpassword(){
+    //     this.password = hashSync(this.password, 10);
+    // }
 }

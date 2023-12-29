@@ -26,7 +26,7 @@ export class UsersService {
 
     async store(user: CreateUserDto){
         const newUser = this.usersRepository.create(user)
-        newUser.hashpassword()
+        // newUser.hashpassword()
         return this.usersRepository.save(newUser)
 
     }
